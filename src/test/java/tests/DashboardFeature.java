@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
 
 public class DashboardFeature {
@@ -27,6 +28,7 @@ public class DashboardFeature {
   public void verifyWelcomeMsg() {
 	  String str=dp.getWelcomeText();
 	  //assertEquals("Welcome", str);
+	  Reporter.log(TestUtility.addScreenToReport());
 	  assertTrue(str.contains("Welcome"));
 	  
   }
@@ -36,6 +38,7 @@ public class DashboardFeature {
 	  List<String> str = dp.getFieldSet();
 	  String[] arr= {"Quick Launch","Employee Distribution by Subunit","Legend", "Pending Leave Requests"};
 	  int i=0;
+	  Reporter.log(TestUtility.addScreenToReport());
 	  for(String s:str)
 	  {
 		  assertEquals(arr[i], s.trim());
@@ -44,12 +47,14 @@ public class DashboardFeature {
   }
   @Test(priority=1, description="Fieldset Count", enabled=true, dependsOnMethods="verifyFieldSetList")
   public void verifyFieldSetCount() {
+	  Reporter.log(TestUtility.addScreenToReport());
 	  assertEquals(4,dp.getFieldSetCount());
   }
   
   @Test(priority=1, description="Fieldset List", timeOut=2000, enabled=true, groups= {"Sanity","Regression"})
   public void verifyTimeout() throws InterruptedException
   {
+	  Reporter.log(TestUtility.addScreenToReport());
 	  Thread.sleep(3000);
   }
   @BeforeClass(alwaysRun=true)
@@ -62,7 +67,7 @@ public class DashboardFeature {
 
   @AfterClass(alwaysRun=true)
   public void afterClass() {
-	  TestUtility.addScreenToReport();
+	  Reporter.log(TestUtility.addScreenToReport());
 	  dr.quit();
   }
 

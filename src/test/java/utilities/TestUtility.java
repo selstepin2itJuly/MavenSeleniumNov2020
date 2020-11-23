@@ -28,11 +28,12 @@ public class TestUtility extends TestBase {
 	{
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", ele);
 	}
-	public static void addScreenToReport()
+	public static String addScreenToReport()
 	{
-		File file = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		String file = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BASE64);
 		String path = "<img src=\"data:image/png;base64, "+file+ "\" width=\"800\" height=\"600\" />";
-		Reporter.log(path);
+		//Reporter.log(path);
+		return path;
 	}
 	public static void captureScreen() throws IOException
 	{

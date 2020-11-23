@@ -19,6 +19,7 @@ import java.io.IOException;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
@@ -36,18 +37,21 @@ public class LoginFeature {
   public void verifyFailedLogin(String a, String b) {
 	  lp.loginToApplication(a, b);
 	  //dp.isWelcomeMegDisplayed();
+	  Reporter.log(TestUtility.addScreenToReport());
 	  assertFalse(dp.isWelcomeMegDisplayed());
   }
 @Test(priority=3,description="Login Success", groups="Sanity")
   public void verifySuccessFulLogin() {
 	  lp.loginToApplication("Admin", "admin123");
 	  //dp.isWelcomeMegDisplayed();
+	  Reporter.log(TestUtility.addScreenToReport());
 	  assertTrue(dp.isWelcomeMegDisplayed());
   }
   @Test(priority=2,description="forgot password link", groups="Regression")
   public void verifyForgotPasswordLink() {
 	  lp.clickOnForgotPassword();
 	  assertFalse(true);
+	  Reporter.log(TestUtility.addScreenToReport());
 	  Assert.fail("Delibrate");
 	  
   }
@@ -61,7 +65,7 @@ public class LoginFeature {
 
   @AfterMethod(alwaysRun=true)
   public void afterMethod() {
-	  TestUtility.addScreenToReport();
+	  Reporter.log(TestUtility.addScreenToReport());
 	  dr.quit();
   }
 
